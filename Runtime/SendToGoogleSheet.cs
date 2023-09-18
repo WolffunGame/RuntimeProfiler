@@ -30,7 +30,7 @@ namespace Wolffun.RuntimeProfiler
             form.AddField(config.appNameEntry, stats.AppName);
             form.AddField(config.getFrameTimesEntry, stats.GetFrameTimes());
             form.AddField(config.textureMemoryUsageEntry, stats.TextureMemoryUsage.ToString("F"));
-            form.AddField(config.meshMemryUsageEntry, stats.MeshMemryUsage.ToString("F"));
+            form.AddField(config.meshMemoryUsageEntry, stats.MeshMemryUsage.ToString("F"));
             form.AddField(config.qualityLevelEntry, stats.QualityLevel);
             form.AddField(config.buildNumberEntry, stats.BuildNumber);
             form.AddField(config.medianFrameTimeEntry, stats.MedianFrameTime.ToString("F"));

@@ -14,24 +14,22 @@ namespace Wolffun.RuntimeProfiler
         public string googleFormUrl;
 
         [Header("Entry"), Tooltip("Example: entry.629291100")]
-        public string deviceNameEntry;
-
-        public string deviceStatsEntry;
+        public string appNameEntry;
         public string appVersionEntry;
+        public string platformEntry;
         public string featureNameEntry;
         public string meanFrameTimeEntry;
         public string maxFrameTimeEntry;
-        public string frameTimeExceededEntry;
+        public string frameTimeExceededEntry; // percentage > time frame budget.
         public string meanDrawCallEntry;
         public string maxDrawCallEntry;
-        public string screenTimeEntry;
         public string reservedMemorySizeEntry;
         public string peakMemoryUsageEntry;
-        public string platformEntry;
-        public string appNameEntry;
-        public string getFrameTimesEntry;
+        public string deviceNameEntry;
         public string textureMemoryUsageEntry;
-        public string meshMemryUsageEntry;
+        public string meshMemoryUsageEntry;
+        public string deviceStatsEntry;
+        public string getFrameTimesEntry; //[GPU-CPU] bound times
         public string qualityLevelEntry;
         public string buildNumberEntry;
         public string medianFrameTimeEntry;
@@ -40,5 +38,9 @@ namespace Wolffun.RuntimeProfiler
         public string medianDrawCallEntry;
         public string leftQuartileDrawCallEntry;
         public string rightQuartileDrawCallEntry;
+        
+
+        [NonSerialized] public string screenTimeEntry;
+        
     }
 }
