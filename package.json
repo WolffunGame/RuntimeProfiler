@@ -1,7 +1,7 @@
 {
   "name": "com.wolffun.runtimeprofiler",
   "displayName": "Wolffun - Runtime Profiler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "2021.3",
   "description": "Collecting performance data and send the raw data to Google Sheet",
   "keywords": [
