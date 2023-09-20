@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Wolffun.RuntimeProfiler
@@ -17,7 +18,7 @@ namespace Wolffun.RuntimeProfiler
                 DontDestroyOnLoad(this);
         }
 
-        private async void OnDestroy()
+        private void OnDestroy()
         {
             foreach (var (key, value) in LoadingTimeTracker.LoadingTimes)
             {
@@ -27,7 +28,7 @@ namespace Wolffun.RuntimeProfiler
                 {
                     stat.FirstTime = value[0];
                     stat.Mean = value.Average();
-                    await SendToGoogleSheet.Send(stat);
+                    SendToGoogleSheet.Send(stat).Forget();
                 }
             }
         }

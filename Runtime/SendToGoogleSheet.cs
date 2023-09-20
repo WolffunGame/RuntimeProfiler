@@ -57,7 +57,7 @@ namespace Wolffun.RuntimeProfiler
         
         private static async UniTask Post(LoadingTimeStats stat)
         {
-            var config = await Resources.LoadAsync<LoadingTimeGoogleFormConfig>(PERFORMANCE_CONFIG_PATH) as LoadingTimeGoogleFormConfig;
+            var config = Resources.Load<LoadingTimeGoogleFormConfig>(LOADING_TIME_CONFIG_PATH) as LoadingTimeGoogleFormConfig;
             if (config == null) throw new Exception($"Runtime Profiler is not initialize yet");
             
             var form = new WWWForm();
