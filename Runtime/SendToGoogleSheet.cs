@@ -11,7 +11,7 @@ namespace Wolffun.RuntimeProfiler
         public const string LOADING_TIME_CONFIG_PATH = "RuntimeProfiler/LoadingTimeGoogleFormConfig";
         private static async UniTask Post(PerformanceStats stats)
         {
-            var config = await Resources.LoadAsync<PerformanceGoogleFormConfig>(PERFORMANCE_CONFIG_PATH) as PerformanceGoogleFormConfig;
+            var config = Resources.Load<PerformanceGoogleFormConfig>(PERFORMANCE_CONFIG_PATH) as PerformanceGoogleFormConfig;
             if (config == null) throw new Exception($"Runtime Profiler is not initialize yet");
 
             var form = new WWWForm();
@@ -24,7 +24,7 @@ namespace Wolffun.RuntimeProfiler
             form.AddField(config.frameTimeExceededEntry, stats.FrameTimeExceeded.ToString("F"));
             form.AddField(config.meanDrawCallEntry, stats.MeanDrawCall.ToString("F"));
             form.AddField(config.maxDrawCallEntry, stats.MaxDrawCall.ToString("F"));
-            form.AddField(config.screenTimeEntry, stats.ScreenTime.ToString("F"));
+            //form.AddField(config.screenTimeEntry, stats.ScreenTime.ToString("F"));
             form.AddField(config.reservedMemorySizeEntry, stats.ReservedMemorySize.ToString("F"));
             form.AddField(config.peakMemoryUsageEntry, stats.PeakMemoryUsage.ToString("F"));
             form.AddField(config.platformEntry, stats.Platform);

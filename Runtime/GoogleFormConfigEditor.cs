@@ -12,8 +12,9 @@ namespace Wolffun.RuntimeProfiler
         {
             string performanceDirectory = "Assets/Resources/" + SendToGoogleSheet.PERFORMANCE_CONFIG_PATH;
             string loadingTimeDirectory = "Assets/Resources/" + SendToGoogleSheet.LOADING_TIME_CONFIG_PATH;
+            string runtimeProfilerDirectory ="Assets/Resources/RuntimeProfiler" ;
 
-            if (!System.IO.Directory.Exists(performanceDirectory))
+            if (!System.IO.Directory.Exists(runtimeProfilerDirectory))
             {
                 System.IO.Directory.CreateDirectory(performanceDirectory);
             }
@@ -27,11 +28,6 @@ namespace Wolffun.RuntimeProfiler
                 Debug.Log("PerformanceGoogleFormConfig created at " + performanceDirectory);
             }
 
-            if (!System.IO.Directory.Exists(loadingTimeDirectory))
-            {
-                System.IO.Directory.CreateDirectory(loadingTimeDirectory);
-            }
-
             LoadingTimeGoogleFormConfig config1 = Resources.Load<LoadingTimeGoogleFormConfig>(SendToGoogleSheet.LOADING_TIME_CONFIG_PATH);
             if (config1 == null)
             {
@@ -43,4 +39,4 @@ namespace Wolffun.RuntimeProfiler
         }
     }
 }
-#endif
+#endif 
