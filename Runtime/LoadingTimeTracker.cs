@@ -1,11 +1,41 @@
 using System.Collections.Generic;
 using System.Diagnostics;
-using Debug = UnityEngine.Debug;
+using System.Linq;
+using UnityEngine;
 
 namespace Wolffun.RuntimeProfiler
 {
-    public static class LoadingTimeProfiler
+    public class LoadingTimeTracker : MonoBehaviour
     {
+        public bool dontDestroyOnLoad;
+
+        #region MonoBehaviour
+
+        private void Start()
+        {
+            if (dontDestroyOnLoad)
+                DontDestroyOnLoad(this);
+        }
+
+        private async void OnDestroy()
+        {
+            foreach (var (key, value) in LoadingTimeTracker.LoadingTimes)
+            {
+                var stat = new LoadingTimeStats();
+                stat.LoadingTime = key;
+                if (value.Count > 0)
+                {
+                    stat.FirstTime = value[0];
+                    stat.Mean = value.Average();
+                    await SendToGoogleSheet.Send(stat);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Static
+
         private static readonly Dictionary<string, Stopwatch> Stopwatches = new Dictionary<string, Stopwatch>();
         public static readonly Dictionary<string, List<long>> LoadingTimes = new Dictionary<string, List<long>>();
 
@@ -58,5 +88,7 @@ namespace Wolffun.RuntimeProfiler
                 LoadingTimes.Add(key, newData);
             }
         }
+
+        #endregion
     }
 }

@@ -98,7 +98,13 @@ namespace Wolffun.RuntimeProfiler
             return r / (1024 * 1024);
         }
 
-
+        public bool dontDestroyOnLoad;
+        private void Start()
+        {
+            if (dontDestroyOnLoad)
+                DontDestroyOnLoad(this);
+        }
+        
         private void OnEnable()
         {
             _systemMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "System Used Memory");

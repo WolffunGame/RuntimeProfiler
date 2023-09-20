@@ -13,8 +13,8 @@ Một công cụ tự động thu thập các dữ liệu phản ánh hiệu nă
 
 ## Cách sử dụng
 ### Setup
-1. Gắn script PerformanceTracker vào một GameObject. 
-2. Nếu bạn cần theo dõi thông số qua nhiều scene khác nhau, bạn nên để GameObject đó DontDestroyOnload. Hoặc tick vào checkbox Dont Destroy Onload trong script PerformanceTracker trên Inspector.
+1. Gắn script PerformanceTracker và LoadingTimeTracker vào một GameObject. 
+2. Nếu bạn cần theo dõi thông số qua nhiều scene khác nhau, bạn nên để GameObject đó DontDestroyOnload. Hoặc tick vào checkbox Dont Destroy Onload trong script PerformanceTracker/LoadingTimeTracker trên Inspector.
 ### Cách dùng API
 ```csharp
 //Start your measure performance data using

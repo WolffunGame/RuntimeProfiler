@@ -7,8 +7,8 @@ using UnityEngine.Serialization;
 
 namespace Wolffun.RuntimeProfiler
 {
-    [CreateAssetMenu(fileName = "GoogleFormConfig", menuName = "RuntimeProfiler/Google Form Config", order = 0)]
-    public class GoogleFormConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "PerformanceGoogleFormConfig", menuName = "RuntimeProfiler/Performance Google Form Config", order = 0)]
+    public class PerformanceGoogleFormConfig : ScriptableObject
     {
         [Tooltip("Example: https://docs.google.com/forms/u/0/d/e/1FAIpQLSf5HeCzA5Tw_vOJX-Kz7Oti6ixo6amHUqPF9aqQECwLwVB43Q/formResponse")]
         public string googleFormUrl;

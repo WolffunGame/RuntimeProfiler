@@ -1,28 +1,30 @@
 #if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
+
 namespace Wolffun.RuntimeProfiler
 {
     public class GoogleFormConfigEditor : Editor
     {
-        private const string ResourcePath = "RuntimeProfiler/";
-        private const string ConfigAssetName = "GoogleFormConfig";
-        
         [InitializeOnLoadMethod]
         static void InitGoogleFormConfigEditor()
         {
-            GoogleFormConfig config = Resources.Load<GoogleFormConfig>(ResourcePath + ConfigAssetName);
-
+            PerformanceGoogleFormConfig config = Resources.Load<PerformanceGoogleFormConfig>(SendToGoogleSheet.PERFORMANCE_CONFIG_PATH);
             if (config == null)
             {
-                config = ScriptableObject.CreateInstance<GoogleFormConfig>();
-                AssetDatabase.CreateAsset(config, "Assets/Resources/" + ResourcePath + ConfigAssetName);
+                config = ScriptableObject.CreateInstance<PerformanceGoogleFormConfig>();
+                AssetDatabase.CreateAsset(config, "Assets/Resources/" + SendToGoogleSheet.PERFORMANCE_CONFIG_PATH + ".asset");
                 AssetDatabase.SaveAssets();
-                Debug.Log("GoogleFormConfig created at Assets/Resources/" + ResourcePath + ConfigAssetName);
+                Debug.Log("PerformanceGoogleFormConfig created at Assets/Resources/" + SendToGoogleSheet.PERFORMANCE_CONFIG_PATH);
             }
-            else
+
+            LoadingTimeGoogleFormConfig config1 = Resources.Load<LoadingTimeGoogleFormConfig>(SendToGoogleSheet.LOADING_TIME_CONFIG_PATH);
+            if (config1 == null)
             {
-                Debug.Log("GoogleFormConfig already exists at Assets/Resources/" + ResourcePath + ConfigAssetName);
+                config1 = ScriptableObject.CreateInstance<LoadingTimeGoogleFormConfig>();
+                AssetDatabase.CreateAsset(config1, "Assets/Resources/" + SendToGoogleSheet.LOADING_TIME_CONFIG_PATH + ".asset");
+                AssetDatabase.SaveAssets();
+                Debug.Log("LoadingTimeGoogleFormConfig created at Assets/Resources/" + SendToGoogleSheet.LOADING_TIME_CONFIG_PATH);
             }
         }
     }
