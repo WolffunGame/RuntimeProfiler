@@ -7,7 +7,13 @@ namespace Wolffun.RuntimeProfiler
 {
     public class GoogleFormConfigEditor : Editor
     {
-        [InitializeOnLoadMethod]
+        [MenuItem("Tools/RuntimeProfiler/Init Google Form Config")]
+        public static void Open()
+        {
+            InitGoogleFormConfigEditor();
+        }
+        
+        
         static void InitGoogleFormConfigEditor()
         {
             string performanceDirectory = "Assets/Resources/" + SendToGoogleSheet.PERFORMANCE_CONFIG_PATH;

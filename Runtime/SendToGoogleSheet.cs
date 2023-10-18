@@ -12,7 +12,7 @@ namespace Wolffun.RuntimeProfiler
         private static async UniTask Post(PerformanceStats stats)
         {
             var config = Resources.Load<PerformanceGoogleFormConfig>(PERFORMANCE_CONFIG_PATH) as PerformanceGoogleFormConfig;
-            if (config == null) throw new Exception($"Runtime Profiler is not initialize yet");
+            if (config == null) throw new Exception($"Runtime Profiler is not initialize yet,To init: Tools/RuntimeProfiler/Init Google Form Config");
 
             var form = new WWWForm();
             form.AddField(config.deviceNameEntry, stats.DeviceName);
@@ -58,7 +58,7 @@ namespace Wolffun.RuntimeProfiler
         private static async UniTask Post(LoadingTimeStats stat)
         {
             var config = Resources.Load<LoadingTimeGoogleFormConfig>(LOADING_TIME_CONFIG_PATH) as LoadingTimeGoogleFormConfig;
-            if (config == null) throw new Exception($"Runtime Profiler is not initialize yet");
+            if (config == null) throw new Exception($"Runtime Profiler is not initialize yet, To init: Tools/RuntimeProfiler/Init Google Form Config");
             
             var form = new WWWForm();
             //Game
