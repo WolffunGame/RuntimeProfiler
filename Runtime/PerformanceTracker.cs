@@ -24,7 +24,7 @@ namespace Wolffun.RuntimeProfiler
 
         private static double GetRecorderFrameAverage(ProfilerRecorder recorder)
         {
-            var samplesCount = recorder.Capacity;
+            var samplesCount = recorder.Count;
             if (samplesCount == 0)
                 return 0;
 
@@ -115,9 +115,9 @@ namespace Wolffun.RuntimeProfiler
             _textureMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Texture Memory");
 
             //GPU time
-            _gpuTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "GPU Frame Time", 15);
+            _gpuTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "GPU Frame Time");
 
-            _renderThreadRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "CPU Main Thread Present Wait Time", 15);
+            _renderThreadRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "CPU Main Thread Present Wait Time");
         }
 
         private void OnDisable()
