@@ -24,7 +24,7 @@ namespace Wolffun.RuntimeProfiler
 
         private static double GetRecorderFrameAverage(ProfilerRecorder recorder)
         {
-            var samplesCount = recorder.Capacity;
+            var samplesCount = recorder.Count;
             if (samplesCount == 0)
                 return 0;
 
