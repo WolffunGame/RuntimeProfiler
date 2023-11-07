@@ -109,7 +109,7 @@ namespace Wolffun.RuntimeProfiler
         {
             _systemMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "System Used Memory");
             _gcMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Reserved Memory");
-            _mainThreadTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "Main Thread");
+            _mainThreadTimeRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Internal, "Main Thread", 15);
             _drawCallsCountRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Draw Calls Count");
             _meshMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Mesh Memory");
             _textureMemoryRecorder = ProfilerRecorder.StartNew(ProfilerCategory.Render, "Texture Memory");
