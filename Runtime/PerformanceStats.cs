@@ -74,10 +74,10 @@ namespace Wolffun.RuntimeProfiler
             DeviceStats = ZString.Format("Device {0} Ram = {1} OS = {2}", SystemInfo.deviceModel,
                 SystemInfo.systemMemorySize, SystemInfo.operatingSystem);
 
-            InitualizeOnConstructor();
+            InitializeOnConstructor();
         }
 
-        protected virtual void InitualizeOnConstructor()
+        protected virtual void InitializeOnConstructor()
         {
             _totalDrawCall = 0L;
             _totalFrameTime = 0;

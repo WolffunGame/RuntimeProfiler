@@ -41,7 +41,7 @@ namespace Wolffun.RuntimeProfiler
         
         [NonSerialized] public string screenTimeEntry;
 
-        public virtual WWWForm GetFormAddedField<T>(T stats) where T : PerformanceStats
+        public virtual WWWForm GetFormAddedField(PerformanceStats stats)
         {
             var form = new WWWForm();
             AddField(form, stats);
@@ -49,7 +49,7 @@ namespace Wolffun.RuntimeProfiler
             return form;
         }
         
-        protected virtual WWWForm AddField<T>(WWWForm form, T stats) where T : PerformanceStats
+        protected virtual WWWForm AddField(WWWForm form, PerformanceStats stats)
         {
             form.AddField(deviceNameEntry, stats.DeviceName);
             form.AddField(deviceStatsEntry, stats.DeviceStats);
