@@ -39,7 +39,12 @@ namespace Wolffun.RuntimeProfiler
         public string leftQuartileDrawCallEntry;
         public string rightQuartileDrawCallEntry;
         
-
+        //Ingame
+        public string meanIngameSimulationTimeEntry;
+        public string ingameSimulationTimeExceededEntry; // percentage > time IngameUpdate budget
+        public string ingamePlayerCountAtStartEntry;
+        //
+        
         [NonSerialized] public string screenTimeEntry;
         
     }

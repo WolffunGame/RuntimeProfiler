@@ -21,7 +21,7 @@ namespace Wolffun.RuntimeProfiler
 
         //GPU time
         private ProfilerRecorder _gpuTimeRecorder;
-
+        
         private static double GetRecorderFrameAverage(ProfilerRecorder recorder)
         {
             var samplesCount = recorder.Count;
@@ -98,6 +98,12 @@ namespace Wolffun.RuntimeProfiler
             return r / (1024 * 1024);
         }
 
+        public virtual bool GetIngamePerformanceStats(out IngamePerformanceStats data)
+        {
+            data = default;
+            return false;
+        }
+        
         public bool dontDestroyOnLoad;
         private void Start()
         {
@@ -142,6 +148,8 @@ namespace Wolffun.RuntimeProfiler
             var textureMemory = _textureMemoryRecorder.LastValue;
             var meshMemory = _meshMemoryRecorder.LastValue;
 
+            var isTrackedIngameData = GetIngamePerformanceStats(out var ingameTrackingData);
+            
             foreach (var (key, value) in GameFeature)
             {
                 if (value.Recording)
@@ -154,6 +162,9 @@ namespace Wolffun.RuntimeProfiler
                     value.SetPeakMemoryUsage(memoryInFrame);
                     value.SetMeshMemorySize(meshMemory);
                     value.SetTextureMemorySize(textureMemory);
+                    
+                    //Ingame
+                    UpdateIngameTrackingData(value, isTrackedIngameData, ingameTrackingData);
                 }
             }
 
@@ -176,6 +187,17 @@ namespace Wolffun.RuntimeProfiler
             }
         }
 
+        private void UpdateIngameTrackingData(PerformanceStats performanceStats, bool isTrackedIngameData,
+            IngamePerformanceStats data)
+        {
+            if (isTrackedIngameData)
+            {
+                performanceStats.AddIngameSimulationTime(data.simulationTime);
+                if (performanceStats.PlayerCountOnStartBattle <= 0)
+                    performanceStats.SetPlayerCountOnStartBattle(data.playerCountOnStartBattle);
+            }
+        }
+        
         private FrameTiming[] _mFrameTimings = new FrameTiming[1];
         
         private static readonly Dictionary<string, PerformanceStats> GameFeature = new Dictionary<string, PerformanceStats>();

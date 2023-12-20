@@ -41,6 +41,12 @@ namespace Wolffun.RuntimeProfiler
             form.AddField(config.leftQuartileDrawCallEntry, stats.LeftQuartileDrawCall.ToString("F"));
             form.AddField(config.rightQuartileDrawCallEntry, stats.RightQuartileDrawCall.ToString("F"));
 
+            //InGame
+            form.AddField(config.meanIngameSimulationTimeEntry, stats.MeanIngameSimulationTime.ToString("F"));
+            form.AddField(config.ingameSimulationTimeExceededEntry, stats.IngameSimulationTimeExceeded.ToString("F"));
+            form.AddField(config.ingamePlayerCountAtStartEntry, stats.PlayerCountOnStartBattle.ToString("F"));
+            //
+            
             var www = UnityWebRequest.Post(config.googleFormUrl, form);
             var rq = await www.SendWebRequest();
 
