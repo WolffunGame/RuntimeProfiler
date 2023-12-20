@@ -50,7 +50,7 @@ namespace Wolffun.RuntimeProfiler
         public double GpuFrameTime;
 
         public string QualityLevel;
-
+        
         private readonly List<DateTime> _timeStamps = new();
         public readonly List<FrameTime> FrameTimes = new();
         public readonly List<double> MainThreadFrameTimes = new();
@@ -59,9 +59,9 @@ namespace Wolffun.RuntimeProfiler
         private long _totalDrawCall = 0;
         private double _totalFrameTime = 0;
         private int _countExceededFrameTime = 0;
-
+        
         public const float FRAME_TIME_THRESHOLD = 33.33f;
-
+        
         public PerformanceStats()
         {
             DeviceName = SystemInfo.deviceModel;
@@ -73,6 +73,12 @@ namespace Wolffun.RuntimeProfiler
             Platform = Application.platform.ToString();
             DeviceStats = ZString.Format("Device {0} Ram = {1} OS = {2}", SystemInfo.deviceModel,
                 SystemInfo.systemMemorySize, SystemInfo.operatingSystem);
+
+            InitializeOnConstructor();
+        }
+
+        protected virtual void InitializeOnConstructor()
+        {
             _totalDrawCall = 0L;
             _totalFrameTime = 0;
             _countExceededFrameTime = 0;
@@ -159,7 +165,7 @@ namespace Wolffun.RuntimeProfiler
             RightQuartileDrawCall = drawCalls[rightQuartileIndex];
         }
 
-        public void SetComplete()
+        public virtual void SetComplete()
         {
             SetAvgFrameTime();
             SetAvgDrawCall();
@@ -218,7 +224,7 @@ namespace Wolffun.RuntimeProfiler
             return sb.ToString();
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             _totalDrawCall = 0L;
             _totalFrameTime = 0;

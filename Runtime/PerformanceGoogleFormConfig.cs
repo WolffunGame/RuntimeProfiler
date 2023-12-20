@@ -39,8 +39,45 @@ namespace Wolffun.RuntimeProfiler
         public string leftQuartileDrawCallEntry;
         public string rightQuartileDrawCallEntry;
         
-
         [NonSerialized] public string screenTimeEntry;
+
+        public virtual WWWForm GetFormAddedField(PerformanceStats stats)
+        {
+            var form = new WWWForm();
+            AddField(form, stats);
+
+            return form;
+        }
         
+        protected virtual WWWForm AddField(WWWForm form, PerformanceStats stats)
+        {
+            form.AddField(deviceNameEntry, stats.DeviceName);
+            form.AddField(deviceStatsEntry, stats.DeviceStats);
+            form.AddField(appVersionEntry, stats.AppVersion);
+            form.AddField(featureNameEntry, stats.FeatureName);
+            form.AddField(meanFrameTimeEntry, stats.MeanFrameTime.ToString("F"));
+            form.AddField(maxFrameTimeEntry, stats.MaxFrameTime.ToString("F"));
+            form.AddField(frameTimeExceededEntry, stats.FrameTimeExceeded.ToString("F"));
+            form.AddField(meanDrawCallEntry, stats.MeanDrawCall.ToString("F"));
+            form.AddField(maxDrawCallEntry, stats.MaxDrawCall.ToString("F"));
+            //form.AddField(screenTimeEntry, stats.ScreenTime.ToString("F"));
+            form.AddField(reservedMemorySizeEntry, stats.ReservedMemorySize.ToString("F"));
+            form.AddField(peakMemoryUsageEntry, stats.PeakMemoryUsage.ToString("F"));
+            form.AddField(platformEntry, stats.Platform);
+            form.AddField(appNameEntry, stats.AppName);
+            form.AddField(getFrameTimesEntry, stats.GetFrameTimes());
+            form.AddField(textureMemoryUsageEntry, stats.TextureMemoryUsage.ToString("F"));
+            form.AddField(meshMemoryUsageEntry, stats.MeshMemryUsage.ToString("F"));
+            form.AddField(qualityLevelEntry, stats.QualityLevel);
+            form.AddField(buildNumberEntry, stats.BuildNumber);
+            form.AddField(medianFrameTimeEntry, stats.MedianFrameTime.ToString("F"));
+            form.AddField(leftQuartileFrameTimeEntry, stats.LeftQuartileFrameTime.ToString("F"));
+            form.AddField(rightQuartileFrameTimeEntry, stats.RightQuartileFrameTime.ToString("F"));
+            form.AddField(medianDrawCallEntry, stats.MedianDrawCall.ToString("F"));
+            form.AddField(leftQuartileDrawCallEntry, stats.LeftQuartileDrawCall.ToString("F"));
+            form.AddField(rightQuartileDrawCallEntry, stats.RightQuartileDrawCall.ToString("F"));
+
+            return form;
+        }
     }
 }
