@@ -50,28 +50,17 @@ namespace Wolffun.RuntimeProfiler
         public double GpuFrameTime;
 
         public string QualityLevel;
-
-        public float MeanIngameSimulationTime;
-        public float IngameSimulationTimeExceeded; // percentage of ingame simulation time exceeded 5ms
-
-        public int PlayerCountOnStartBattle;
         
         private readonly List<DateTime> _timeStamps = new();
         public readonly List<FrameTime> FrameTimes = new();
         public readonly List<double> MainThreadFrameTimes = new();
-        public readonly List<float> MainThreadIngameSimulationTimes = new();
         public readonly List<float> DrawCalls = new();
 
         private long _totalDrawCall = 0;
         private double _totalFrameTime = 0;
         private int _countExceededFrameTime = 0;
         
-        private float _totalIngameSimulationTime = 0;
-        private int _countExceededIngameSimulationTime = 0;
-        
-        
         public const float FRAME_TIME_THRESHOLD = 33.33f;
-        public const float INGAME_SIMULATION_TIME_THRESHOLD = 5f;
         
         public PerformanceStats()
         {
@@ -84,12 +73,15 @@ namespace Wolffun.RuntimeProfiler
             Platform = Application.platform.ToString();
             DeviceStats = ZString.Format("Device {0} Ram = {1} OS = {2}", SystemInfo.deviceModel,
                 SystemInfo.systemMemorySize, SystemInfo.operatingSystem);
+
+            InitualizeOnConstructor();
+        }
+
+        protected virtual void InitualizeOnConstructor()
+        {
             _totalDrawCall = 0L;
             _totalFrameTime = 0;
             _countExceededFrameTime = 0;
-
-            _totalIngameSimulationTime = 0;
-            _countExceededIngameSimulationTime = 0;
         }
 
         public bool Recording { get; set; } = false;
@@ -110,19 +102,6 @@ namespace Wolffun.RuntimeProfiler
             if (frameTime > MaxFrameTime) MaxFrameTime = frameTime;
 
             if (frameTime > FRAME_TIME_THRESHOLD) _countExceededFrameTime++;
-        }
-        
-        public void AddIngameSimulationTime(float updateTime)
-        {
-            _totalIngameSimulationTime += updateTime;
-            MainThreadIngameSimulationTimes.Add(updateTime);
-
-            if (updateTime > INGAME_SIMULATION_TIME_THRESHOLD) _countExceededIngameSimulationTime++;
-        }
-        
-        public void SetPlayerCountOnStartBattle(int playerCount)
-        {
-            PlayerCountOnStartBattle = playerCount;
         }
 
         public void AddGpuFrameTime(double gpuFrameTime)
@@ -151,11 +130,6 @@ namespace Wolffun.RuntimeProfiler
         {
             FrameTimeExceeded = _countExceededFrameTime * 1.0f / MainThreadFrameTimes.Count;
         }
-        
-        private void SetIngameSimulationTimeExceeded()
-        {
-            IngameSimulationTimeExceeded = _countExceededIngameSimulationTime * 1.0f / MainThreadIngameSimulationTimes.Count;
-        }
 
         private void SetAvgFrameTime()
         {
@@ -172,11 +146,6 @@ namespace Wolffun.RuntimeProfiler
             LeftQuartileFrameTime = frameTimes[leftQuartileIndex];
             var rightQuartileIndex = medianIndex + leftQuartileIndex;
             RightQuartileFrameTime = frameTimes[rightQuartileIndex];
-        }
-        
-        private void SetAvgIngameSimulationTime()
-        {
-            MeanIngameSimulationTime = _totalIngameSimulationTime / MainThreadIngameSimulationTimes.Count;
         }
 
         private void SetAvgDrawCall()
@@ -196,13 +165,11 @@ namespace Wolffun.RuntimeProfiler
             RightQuartileDrawCall = drawCalls[rightQuartileIndex];
         }
 
-        public void SetComplete()
+        public virtual void SetComplete()
         {
             SetAvgFrameTime();
-            SetAvgIngameSimulationTime();
             SetAvgDrawCall();
             SetFrameTimeExceeded();
-            SetIngameSimulationTimeExceeded();
         }
 
         public void SetReservedMemorySize()
@@ -257,7 +224,7 @@ namespace Wolffun.RuntimeProfiler
             return sb.ToString();
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             _totalDrawCall = 0L;
             _totalFrameTime = 0;
@@ -280,18 +247,6 @@ namespace Wolffun.RuntimeProfiler
             PeakMemoryUsage = 0;
             MeshMemryUsage = 0;
             TextureMemoryUsage = 0;
-
-            _totalIngameSimulationTime = 0;
-            _countExceededIngameSimulationTime = 0;
-            MeanIngameSimulationTime = 0;
-            IngameSimulationTimeExceeded = 0;
-            PlayerCountOnStartBattle = 0;
         }
     }
-}
-
-public struct IngamePerformanceStats
-{
-    public float simulationTime;
-    public int playerCountOnStartBattle;
 }
